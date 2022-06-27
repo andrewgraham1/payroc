@@ -4,6 +4,7 @@
       <h2>Shorten URLs here</h2>
       <input v-model="text" placeholder="URL here" />
       <button @click="submit">Submit</button>
+      <p>Response: {{ info }}</p>
       <p>
         By clicking SUBMIT, you are agreeing to DINOCO's Terms of Service,
         Privacy Policy, and Acceptable Use Policy
