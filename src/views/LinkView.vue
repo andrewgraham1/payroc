@@ -18,7 +18,30 @@ export default {
   data() {
     return {
       text: "",
+      response: "",
+      url: "https://fake.com/backend url",
+      info: "",
     };
+  },
+  methods: {
+    async submit() {
+      try {
+        const response = await axios({
+          method: "post",
+          url: this.url,
+          headers: {
+            "Content-Type": "application/json",
+          },
+          data: { name: this.text },
+        });
+        this.info = response.data;
+        console.log(this.info);
+      } catch (myError) {
+        console.log(myError);
+        console.log("Unsuccesfful");
+        this.info = "";
+      }
+    },
   },
 };
 </script>
