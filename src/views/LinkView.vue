@@ -1,6 +1,7 @@
 <template>
   <div class="main">
     <div class="content">
+      <h2>Shorten URLs here</h2>
       <input v-model="text" placeholder="URL here" />
       <button @click="submit">Submit</button>
       <p>
@@ -23,9 +24,13 @@ export default {
 </script>
 
 <style>
+h2 {
+  font-weight: bold;
+  font-size: 30px;
+}
 button {
   background-color: white; /* Green */
-  border: none;
+  border: 2px solid black;
   color: black;
   padding: 15px 32px;
   text-align: center;
@@ -41,14 +46,21 @@ button:hover {
   box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
     0 17px 50px 0 rgba(0, 0, 0, 0.19);
   background-color: lightblue; /* Green */
-  color: white;
+  color: black;
 }
+button:active {
+  background-color: red; /* Green */
+  color: black;
+}
+
 input {
   height: 50px;
   width: 500px;
   border-radius: 15px;
   padding: 10px;
   margin: 10px;
+  border: 2px solid black;
+  color: black;
 }
 
 .main {
