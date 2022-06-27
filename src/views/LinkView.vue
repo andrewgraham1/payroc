@@ -19,7 +19,7 @@ export default {
     return {
       text: "",
       response: "",
-      url: "https://fake.com/backend url",
+      url: "http://localhost:3001/shorten-url",
       info: "",
     };
   },
@@ -32,7 +32,7 @@ export default {
           headers: {
             "Content-Type": "application/json",
           },
-          data: { name: this.text },
+          data: { text: this.text },
         });
         this.info = response.data;
         console.log(this.info);
