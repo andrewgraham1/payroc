@@ -8,7 +8,7 @@ import { RouterLink, RouterView } from "vue-router";
       <img src="https://i.imgur.com/2Aau5E4.png" alt="company logo" />
       <nav>
         <RouterLink to="/">Home</RouterLink> |
-        <RouterLink to="/link">Link</RouterLink>
+        <RouterLink to="/about">About</RouterLink>
       </nav>
       <h1>Make long URLs extinct!</h1>
     </header>

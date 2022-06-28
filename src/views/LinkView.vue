@@ -4,7 +4,13 @@
       <h2>Shorten URLs here</h2>
       <input v-model="text" placeholder="URL here" />
       <button @click="submit">Submit</button>
-      <p class="response">Response: {{ info }}</p>
+      <a
+        v-bind:href="link"
+        class="response"
+        :style="{ display: displayLink }"
+        >{{ link }}</a
+      >
+      <p class="response" :style="{ display: displayInfo }">{{ info }}</p>
       <p>
         By clicking SUBMIT, you are agreeing to DINOCO's Terms of Service,
         Privacy Policy, and Acceptable Use Policy
@@ -23,7 +29,10 @@ export default {
       url: {
         post: "http://localhost:3001/shorten-url",
       },
-      info: "URL must start with either http:// or https://",
+      link: "",
+      info: "",
+      displayInfo: "none",
+      displayLink: "none",
     };
   },
   methods: {
@@ -39,17 +48,24 @@ export default {
             },
             data: { text: this.text },
           });
-          this.info = response.data;
-          console.log(this.info);
+          this.info = "";
+          this.displayInfo = "none";
+          this.link = response.data;
+          this.displayLink = "inline-block";
+          console.log(this.link);
         } catch (myError) {
           console.log(myError);
           console.log("Unsuccesfful");
-          this.info = "";
+          this.info = myError;
+          this.displayInfo = "inline-block";
         }
         return;
       } else {
         console.log("no http:// found");
         this.info = "URL must start with either http:// or https://";
+        this.displayInfo = "inline-block";
+        this.link = "";
+        this.displayLink = "none";
         //error for user not using http:// https:// here
       }
     },
@@ -61,6 +77,7 @@ export default {
 .response {
   font-weight: bold;
   font-size: larger;
+  transition-delay: 0.5s;
 }
 
 h2 {
@@ -120,7 +137,7 @@ input {
   border-radius: 25px;
   padding: 10px;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   flex-direction: column;
   color: black;
