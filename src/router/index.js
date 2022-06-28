@@ -25,6 +25,14 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import("../views/LinkView.vue"),
     },
+    {
+      path: "/:id",
+      name: "redirect",
+      // route level code-splitting
+      // this generates a separate chunk (redirect.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import("../views/RedirectView.vue"),
+    },
   ],
 });
 

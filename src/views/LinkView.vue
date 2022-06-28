@@ -4,7 +4,7 @@
       <h2>Shorten URLs here</h2>
       <input v-model="text" placeholder="URL here" />
       <button @click="submit">Submit</button>
-      <p>Response: {{ info }}</p>
+      <p class="response">Response: {{ info }}</p>
       <p>
         By clicking SUBMIT, you are agreeing to DINOCO's Terms of Service,
         Privacy Policy, and Acceptable Use Policy
@@ -20,27 +20,37 @@ export default {
     return {
       text: "",
       response: "",
-      url: "http://localhost:3001/shorten-url",
-      info: "",
+      url: {
+        post: "http://localhost:3001/shorten-url",
+      },
+      info: "URL must start with either http:// or https://",
     };
   },
   methods: {
     async submit() {
-      try {
-        const response = await axios({
-          method: "post",
-          url: this.url,
-          headers: {
-            "Content-Type": "application/json",
-          },
-          data: { text: this.text },
-        });
-        this.info = response.data;
-        console.log(this.info);
-      } catch (myError) {
-        console.log(myError);
-        console.log("Unsuccesfful");
-        this.info = "";
+      const regEx = new RegExp("^(http|https)://");
+      if (regEx.test(this.text)) {
+        try {
+          const response = await axios({
+            method: "post",
+            url: this.url.post,
+            headers: {
+              "Content-Type": "application/json",
+            },
+            data: { text: this.text },
+          });
+          this.info = response.data;
+          console.log(this.info);
+        } catch (myError) {
+          console.log(myError);
+          console.log("Unsuccesfful");
+          this.info = "";
+        }
+        return;
+      } else {
+        console.log("no http:// found");
+        this.info = "URL must start with either http:// or https://";
+        //error for user not using http:// https:// here
       }
     },
   },
@@ -48,6 +58,11 @@ export default {
 </script>
 
 <style>
+.response {
+  font-weight: bold;
+  font-size: larger;
+}
+
 h2 {
   font-weight: bold;
   font-size: 30px;
